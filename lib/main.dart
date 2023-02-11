@@ -12,16 +12,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-    light: ThemeData(
-    brightness: Brightness.light,
-    primarySwatch: Colors.purple,
-    accentColor: Colors.amber,
-  ),
+      light: ThemeData(
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.purple, backgroundColor: Colors.blue)
+            .copyWith(secondary: Colors.amber),
+      ),
       dark: ThemeData(
-    brightness: Brightness.dark,
-    primarySwatch: Colors.purple,
-    accentColor: Colors.amber,
-  ),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.purple,
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.purple, backgroundColor: Colors.blue)
+            .copyWith(secondary: Colors.amber),
+      ),
       initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
         title: 'Adaptive Theme Demo',
