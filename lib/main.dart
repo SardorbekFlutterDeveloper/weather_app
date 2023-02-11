@@ -1,37 +1,36 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:ob_havo_app/views/home_page.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/material.dart';
+import 'package:ob_havo_app/core/components/template.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(414, 896),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (light, dark) {
+        return adaptiveTheme();
+      },
+    );
+  }
+
+  AdaptiveTheme adaptiveTheme() {
     return AdaptiveTheme(
-      light: ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.purple, backgroundColor: Colors.blue)
-            .copyWith(secondary: Colors.amber),
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.purple,
-        colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.purple, backgroundColor: Colors.blue)
-            .copyWith(secondary: Colors.amber),
-      ),
+      light: LightTheme.lightTheme,
+      dark: DarkTheme.darkTheme,
       initial: AdaptiveThemeMode.light,
-      builder: (theme, darkTheme) => MaterialApp(
-        title: 'Adaptive Theme Demo',
-        theme: theme,
-        debugShowCheckedModeBanner: false,
+      builder: (lightTheme, darkTheme) => MaterialApp(
+        title: 'Weather App',
+        theme: lightTheme,
         darkTheme: darkTheme,
-        home: HomePage(),
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/home",
+        onGenerateRoute: Routes.instance.onGenerateRoute,
       ),
     );
   }
